@@ -36,7 +36,7 @@ defmt-error = []
 
 [profile.dev]
 codegen-units = 1
-debug = 1
+debug = 2
 debug-assertions = true # <-
 incremental = false
 lto = 'fat'
@@ -45,7 +45,7 @@ overflow-checks = true # <-
 
 [profile.release]
 codegen-units = 1
-debug = 1
+debug = 2
 debug-assertions = false # <-
 incremental = false
 lto = 'fat'
