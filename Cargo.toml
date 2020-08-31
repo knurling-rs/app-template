@@ -5,6 +5,12 @@ name = "{{project-name}}"
 edition = "2018"
 version = "0.1.0"
 
+[lib]
+test = false
+
+[workspace]
+members = ["testsuite"]
+
 [dependencies.defmt]
 git = "https://github.com/knurling-rs/defmt"
 branch = "main"

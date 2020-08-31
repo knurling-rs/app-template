@@ -1,0 +1,46 @@
+[package]
+# TODO(1) fix `authors` if you didn't use `cargo-generate`
+authors = ["{{authors}}"]
+name = "testsuite"
+publish = false
+edition = "2018"
+version = "0.1.0"
+
+[[test]]
+name = "test"
+harness = false
+
+[dependencies.defmt]
+git = "https://github.com/knurling-rs/defmt"
+branch = "main"
+
+[dependencies.defmt-rtt]
+git = "https://github.com/knurling-rs/defmt"
+branch = "main"
+
+[dependencies.panic-probe]
+git = "https://github.com/knurling-rs/probe-run"
+branch = "main"
+# enable the `print-defmt` feature for more complete test output
+features = ["print-defmt"]
+
+[dependencies]
+{{project-name}} = { path = ".." }
+cortex-m = "0.6.3"
+cortex-m-rt = "0.6.12"
+
+[features]
+# set logging levels here
+default = [
+  # in tests, enable all logs
+  "defmt-trace",
+  # "dependency-a/defmt-trace",
+]
+
+# do NOT modify these features
+defmt-default = []
+defmt-trace = []
+defmt-debug = []
+defmt-info = []
+defmt-warn = []
+defmt-error = []
