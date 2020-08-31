@@ -13,6 +13,10 @@ branch = "main"
 git = "https://github.com/knurling-rs/defmt"
 branch = "main"
 
+[dependencies.panic-probe]
+git = "https://github.com/knurling-rs/probe-run"
+branch = "main"
+
 [dependencies]
 cortex-m = "0.6.3"
 cortex-m-rt = "0.6.12"
