@@ -3,7 +3,7 @@
 use core::sync::atomic::{AtomicUsize, Ordering};
 
 use defmt_rtt as _; // global logger
-
+use panic_probe as _;
 // TODO(5) adjust HAL import
 // use some_hal as _; // memory layout
 
@@ -14,23 +14,6 @@ fn timestamp() -> u64 {
     let n = COUNT.load(Ordering::Relaxed);
     COUNT.store(n + 1, Ordering::Relaxed);
     n as u64
-}
-
-#[panic_handler] // panicking behavior
-fn panic(info: &core::panic::PanicInfo) -> ! {
-    if let Some(loc) = info.location() {
-        defmt::error!(
-            "panicked at {:str}:{:u32}:{:u32}",
-            loc.file(),
-            loc.line(),
-            loc.column()
-        )
-    } else {
-        // no location info
-        defmt::error!("panicked")
-    }
-
-    exit()
 }
 
 /// Terminates the application and makes `probe-run` exit with exit-code = 0
