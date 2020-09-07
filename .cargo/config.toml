@@ -2,6 +2,7 @@
 # TODO(2) replace `$CHIP` with your chip's name (see `probe-run --list-chips` output)
 runner = "probe-run --chip $CHIP --defmt"
 rustflags = [
+  "-C", "linker=flip-link",
   "-C", "link-arg=-Tlink.x",
   "-C", "link-arg=-Tdefmt.x",
 ]
