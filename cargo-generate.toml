@@ -1,2 +1,2 @@
 [template]
-exclude = [".github/FUNDING.yml"]
+exclude = [".github/FUNDING.yml", "README.md"]
