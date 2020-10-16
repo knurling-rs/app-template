@@ -10,11 +10,8 @@
 
 #### 1. `flip-link`:
 
-<!-- TODO: update this once flip-link is on crates.io -->
 ```console
-$ cargo install \
-    --git https://github.com/knurling-rs/flip-link \
-    --branch main
+$ cargo install flip-link
 ```
 
 #### 2. The **git** version of `probe-run`:
