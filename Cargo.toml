@@ -21,7 +21,7 @@ git = "https://github.com/knurling-rs/probe-run"
 branch = "main"
 
 [dependencies]
-cortex-m = "0.6.3"
+cortex-m = "0.6.4"
 cortex-m-rt = "0.6.13"
 # TODO(4) enter your HAL here
 # some-hal = "1.2.3"
