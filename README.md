@@ -103,17 +103,16 @@ Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 +use nrf52840_hal as _; // memory layout
 ```
 
-#### 6. Get a linker script
+#### (6. Get a linker script)
 
-Some HAL crates require that you copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, the file is in the folder `nrf-hal/nrf52840-hal/`. You can get it from your local Cargo folder, the default location is:
+Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, you can get it from your local Cargo folder, the default location is under:
 
 ```
-~/.cargo/registry/src/github.com-<long number>/nrf-hal/nrf52840-hal/memory.x
+~/.cargo/registry/src/
 ```
 
-You can also get the file from nrf-hal's [Github repository]. If you are using another HAL, you may need to write the file yourself. Check the documentation for the HAL you are using!
+Not all HALs provide a memory.x file, you may need to write it yourself. Check the documentation for the HAL you are using.
 
-[Github repository]: https://github.com/nrf-rs/nrf-hal/tree/master/nrf52840-hal/
 
 #### 7. Run!
 
