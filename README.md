@@ -78,7 +78,7 @@ In `.cargo/config.toml`, pick the right compilation target for your board.
 +target = "thumbv7em-none-eabihf" # Cortex-M4F (with FPU)
 ```
 
-### 4. Add a HAL as a dependency
+#### 4. Add a HAL as a dependency
 
 In `Cargo.toml`, list the Hardware Abstraction Layer (HAL) for your board as a dependency.
 
@@ -95,7 +95,7 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 
 #### 5. Import your HAL
 
-Now that you have selected a HAL fix the HAL import in `src/lib.rs`
+Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 
 ``` diff
  // my-app/src/lib.rs
@@ -103,7 +103,19 @@ Now that you have selected a HAL fix the HAL import in `src/lib.rs`
 +use nrf52840_hal as _; // memory layout
 ```
 
-#### 6. run!
+#### 6. Get a linker script
+
+Some HAL crates require that you copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, the file is in the folder `nrf-hal/nrf52840-hal/`. You can get it from your local Cargo folder, the default location is:
+
+```
+~/.cargo/registry/src/github.com-<long number>/nrf-hal/nrf52840-hal/memory.x
+```
+
+You can also get the file from nrf-hal's [Github repository]. If you are using another HAL, you may need to write the file yourself. Check the documentation for the HAL you are using!
+
+[Github repository]: https://github.com/nrf-rs/nrf-hal/tree/master/nrf52840-hal/
+
+#### 7. Run!
 
 You are now all set to `cargo-run` your first `defmt`-powered application!
 There are some examples in the `src/bin` directory.
