@@ -14,14 +14,10 @@
 $ cargo install flip-link
 ```
 
-#### 2. The **git** version of `probe-run`:
+#### 2. `probe-run`:
 
-<!-- TODO: update this once defmt is on crates.io? -->
 ``` console
-$ cargo install \
-    --git https://github.com/knurling-rs/probe-run \
-    --branch main \
-    --features defmt
+$ cargo install probe-run
 ```
 
 #### 3. [`cargo-generate`]:
