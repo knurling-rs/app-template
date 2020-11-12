@@ -131,6 +131,44 @@ $ echo $?
 0
 ```
 
+## Trying out the git version of defmt
+
+This template is configured to use the latest crates.io release (the "stable" release) of the `defmt` framework.
+To use the git version (the "development" version) of `defmt` follow these steps:
+
+1. Install the *git* version of `probe-run`
+
+``` console
+$ cargo install --git https://github.com/knurling-rs/probe-run --branch main
+```
+
+2. Check which defmt version `probe-run` supports
+
+``` console
+$ probe-run --version
+probe-run 0.1.4 (3521a42 2020-11-12)
+supported defmt version: 3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4
+```
+
+In the example output, the supported version is `3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4`
+
+3. Switch defmt dependencies to git: uncomment the last part of the root `Cargo.toml` and enter the hash reported by `probe-run --version`:
+
+``` diff
+-# [patch.crates-io]
+-# defmt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
+-# defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
+-# panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
++[patch.crates-io]
++defmt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
++defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
++panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
+```
+
+You are now using the git version of `defmt`!
+
+**NOTE** there may have been breaking changes between the crates.io version and the git version; you'll need to fix those in the source code.
+
 ## Support
 
 `app-template` is part of the [Knurling] project, [Ferrous Systems]' effort at
