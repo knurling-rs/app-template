@@ -158,10 +158,12 @@ In the example output, the supported version is `3db6b41f08a5c866e6d6ed7103d01b0
 -# [patch.crates-io]
 -# defmt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
 -# defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
+-# defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
 -# panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
 +[patch.crates-io]
 +defmt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
 +defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
++defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
 +panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
 ```
 
