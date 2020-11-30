@@ -7,5 +7,5 @@ use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
 fn main() -> ! {
     defmt::info!("main");
 
-    panic!()
+    defmt::panic!()
 }
