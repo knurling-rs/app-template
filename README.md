@@ -28,7 +28,7 @@ $ cargo install cargo-generate
 
 [`cargo-generate`]: https://crates.io/crates/cargo-generate
 
-> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments. [This flip-link CI patch](https://github.com/knurling-rs/flip-link/blob/main/.github/workflows/0001-configure-test-flip-link-app-for-nrf52840.patch) can serve as a reference on what to do.
+> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments.
 
 ## Setup
 
