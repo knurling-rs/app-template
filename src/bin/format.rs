@@ -1,7 +1,7 @@
 #![no_main]
 #![no_std]
 
-use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
+use {{ project_name | replace(from="-", to="_") }} as _; // global logger + panicking-behavior + memory layout
 use defmt::Format; // <- derive attribute
 
 #[derive(Format)]
@@ -22,5 +22,5 @@ fn main() -> ! {
     let x = 42;
     defmt::info!("x={:u8}", x);
 
-    {{crate_name}}::exit()
+    {{project_name | replace(from="-", to="_")}}::exit()
 }
