@@ -1,5 +1,4 @@
 [package]
-# TODO(1) fix `authors` if you didn't use `cargo-generate`
 authors = ["{{authors}}"]
 name = "testsuite"
 publish = false
@@ -11,7 +10,7 @@ name = "test"
 harness = false
 
 [dependencies]
-{{project-name}} = { path = ".." }
+{{project_name}} = { path = ".." }
 cortex-m = "0.6.3"
 cortex-m-rt = "0.6.12"
 defmt = "0.1.0"

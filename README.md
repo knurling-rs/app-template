@@ -20,86 +20,29 @@ $ cargo install flip-link
 $ cargo install probe-run
 ```
 
-#### 3. [`cargo-generate`]:
+#### 3. [`kickstart`]:
 
 ```
-$ cargo install cargo-generate
+$ cargo install kickstart
 ```
 
-[`cargo-generate`]: https://crates.io/crates/cargo-generate
+[`kickstart`]: https://github.com/Keats/kickstart
 
-> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments.
+> *Note:* You can also just clone this repository instead of using `kickstart`, but this involves additional manual adjustments.
 
 ## Setup
 
 #### 1. Initialize the project template
 
 ``` console
-$ cargo generate \
-    --git https://github.com/knurling-rs/app-template \
-    --branch main \
-    --name my-app
+$ kickstart \
+    https://github.com/knurling-rs/app-template
 ```
 
-If you look into your new `my-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.
+Answer the questions (or use defaults) to generate your project.
 
-Let's walk through them together now.
 
-#### 2. Set `probe-run` chip
-
-Pick a chip from `probe-run --list-chips` and enter it into `.cargo/config.toml`.
-
-If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
-
-[our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
-
-``` diff
- # .cargo/config.toml
- [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-run --chip {{chip}} --defmt"
-+runner = "probe-run --chip nRF52840_xxAA --defmt"
-```
-
-#### 3. Adjust the compilation target
-
-In `.cargo/config.toml`, pick the right compilation target for your board.
-
-``` diff
- # .cargo/config.toml
- [build]
--target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
--# target = "thumbv7m-none-eabi"    # Cortex-M3
--# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
--# target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
-+target = "thumbv7em-none-eabihf" # Cortex-M4F (with FPU)
-```
-
-#### 4. Add a HAL as a dependency
-
-In `Cargo.toml`, list the Hardware Abstraction Layer (HAL) for your board as a dependency.
-
-For the nRF52840 you'll want to use the [`nrf52840-hal`].
-
-[`nrf52840-hal`]: https://crates.io/crates/nrf52840-hal
-
-``` diff
- # Cargo.toml
- [dependencies]
--# some-hal = "1.2.3"
-+nrf52840-hal = "0.11.0"
-```
-
-#### 5. Import your HAL
-
-Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
-
-``` diff
- // my-app/src/lib.rs
--// use some_hal as _; // memory layout
-+use nrf52840_hal as _; // memory layout
-```
-
-#### (6. Get a linker script)
+#### 2. Get a linker script
 
 Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, you can get it from your local Cargo folder, the default location is under:
 
@@ -110,7 +53,7 @@ Some HAL crates require that you manually copy over a file called `memory.x` fro
 Not all HALs provide a memory.x file, you may need to write it yourself. Check the documentation for the HAL you are using.
 
 
-#### 7. Run!
+#### 3. Run!
 
 You are now all set to `cargo-run` your first `defmt`-powered application!
 There are some examples in the `src/bin` directory.

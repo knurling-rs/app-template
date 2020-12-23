@@ -1,12 +1,12 @@
 #![no_main]
 #![no_std]
 
-use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
+use {{ project_name | replace(from="-", to="_") }} as _; // global logger + panicking-behavior + memory layout
 
 #[cortex_m_rt::entry]
 fn main() -> ! {
     ack(10, 10);
-    {{crate_name}}::exit()
+    {{project_name | replace(from="-", to="_")}}::exit()
 }
 
 fn ack(m: u32, n: u32) -> u32 {

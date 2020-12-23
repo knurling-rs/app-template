@@ -1,0 +1,53 @@
+name = "MyEmbeddedApp"
+description = "Quickly set up a probe-run + defmt + flip-link embedded project"
+kickstart_version = 1
+ignore = [
+  "README.md",
+  ".github/FUNDING.yml",
+]
+copy_without_render = []
+
+[[variables]]
+name = "authors"
+default = "You <your@email.com>"
+prompt = "Author's name?"
+
+[[variables]]
+name = "project_name"
+prompt = "How to name your project's crate?"
+default = "my-embedded-app"
+validation = "^([a-zA-Z][a-zA-Z0-9_-]+)$"
+
+[[variables]]
+name = "chip"
+default = "nRF52840_xxAA"
+prompt = "What's the name of the chip (see `probe-run --list-chips` output)?"
+
+[[variables]]
+name = "target"
+default = "thumbv6m-none-eabi"
+prompt = "What's the target's name?"
+choices = [
+  "thumbv6m-none-eabi (Cortex-M0 and Cortex-M0+)",
+  "thumbv7m-none-eabi (Cortex-M3)",
+  "thumbv7em-none-eabi (Cortex-M4 and Cortex-M7 | no FPU)",
+  "thumbv7em-none-eabihf (Cortex-M4F and Cortex-M7F | with FPU)"
+]
+
+[[variables]]
+name = "use_hal"
+default = "yes"
+prompt = "Do you want to use an embedded-hal?"
+choices = [ "yes", "no" ]
+
+[[variables]]
+name = "hal_crate"
+default = "nrf52840-hal"
+prompt = "embedded-hal crate name?"
+only_if = { name = "use_hal", value = "yes" }
+
+[[variables]]
+name = "hal_crate_version"
+default = "0.11.0"
+prompt = "embedded-hal crate version?"
+only_if = { name = "use_hal", value = "yes" }
