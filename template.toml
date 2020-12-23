@@ -14,7 +14,7 @@ prompt = "Author's name?"
 
 [[variables]]
 name = "project_name"
-prompt = "How to you name your project's crate?"
+prompt = "How to name your project's crate?"
 default = "my-embedded-app"
 validation = "^([a-zA-Z][a-zA-Z0-9_-]+)$"
 
