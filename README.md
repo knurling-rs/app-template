@@ -56,8 +56,8 @@ If, for example, you have a nRF52840 Development Kit from one of [our workshops]
 ``` diff
  # .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-run --chip {{chip}} --defmt"
-+runner = "probe-run --chip nRF52840_xxAA --defmt"
+-runner = "probe-run --chip {{chip}}"
++runner = "probe-run --chip nRF52840_xxAA"
 ```
 
 #### 3. Adjust the compilation target
@@ -86,7 +86,7 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
  # Cargo.toml
  [dependencies]
 -# some-hal = "1.2.3"
-+nrf52840-hal = "0.11.0"
++nrf52840-hal = "0.12.0"
 ```
 
 #### 5. Import your HAL
