@@ -9,11 +9,11 @@ version = "0.1.0"
 members = ["testsuite"]
 
 [dependencies]
-cortex-m = "0.6.4"
+cortex-m = "0.7.1"
 cortex-m-rt = "0.6.13"
-defmt = "0.1.2"
-defmt-rtt = "0.1.0"
-panic-probe = { version = "0.1.0", features = ["print-defmt"] }
+defmt = "0.2.0"
+defmt-rtt = "0.2.0"
+panic-probe = { version = "0.2.0", features = ["print-defmt"] }
 # TODO(4) enter your HAL here
 # some-hal = "1.2.3"
 
