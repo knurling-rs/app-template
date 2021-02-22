@@ -20,7 +20,7 @@ fn main() -> ! {
     let s = S1 { x: 42, y: S2 { z: 43 } };
     defmt::info!("s={:?}", s);
     let x = 42;
-    defmt::info!("x={:u8}", x);
+    defmt::info!("x={=u8}", x);
 
     {{crate_name}}::exit()
 }

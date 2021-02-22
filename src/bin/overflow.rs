@@ -10,7 +10,7 @@ fn main() -> ! {
 }
 
 fn ack(m: u32, n: u32) -> u32 {
-    defmt::info!("ack(m={:u32}, n={:u32})", m, n);
+    defmt::info!("ack(m={=u32}, n={=u32})", m, n);
     let mut big = [2; 512];
     if m == 0 {
         n + 1
