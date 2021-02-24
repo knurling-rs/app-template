@@ -20,25 +20,22 @@ $ cargo install flip-link
 $ cargo install probe-run
 ```
 
-#### 3. [`cargo-generate`]:
+#### 3. [`kickstart`]:
 
 ```
-$ cargo install cargo-generate
+$ cargo install kickstart
 ```
 
-[`cargo-generate`]: https://crates.io/crates/cargo-generate
+[`kickstart`]: https://crates.io/crates/kickstart
 
-> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments.
+> *Note:* You can also just clone this repository instead of using `kickstart`, but this involves additional manual adjustments.
 
 ## Setup
 
 #### 1. Initialize the project template
 
 ``` console
-$ cargo generate \
-    --git https://github.com/knurling-rs/app-template \
-    --branch main \
-    --name my-app
+$ kickstart https://github.com/knurling-rs/app-template
 ```
 
 If you look into your new `my-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.

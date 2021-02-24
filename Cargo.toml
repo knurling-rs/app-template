@@ -1,5 +1,5 @@
 [package]
-# TODO(1) fix `authors` and `name` if you didn't use `cargo-generate`
+# TODO(1) fix `authors` and `name` if you didn't use `kickstart`
 authors = ["{{authors}}"]
 name = "{{project_name}}"
 edition = "2018"

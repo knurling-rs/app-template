@@ -1,5 +1,5 @@
 [package]
-# TODO(1) fix `authors` if you didn't use `cargo-generate`
+# TODO(1) fix `authors` if you didn't use `kickstart`
 authors = ["{{authors}}"]
 name = "testsuite"
 publish = false
