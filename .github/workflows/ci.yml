@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, staging, trying ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  CARGO_TERM_COLOR: always
+  TARGET: thumbv7em-none-eabihf
+
+# NOTE if you change the `matrix` field or add/remove a job you'll need to update the list of jobs
+# in `.github/bors.toml
+jobs:
+  test:
+    strategy:
+      matrix:
+        rust:
+          - stable
+          - nightly
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        path: app-template
+    - uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: ${{ matrix.rust }}
+        override: true
+        target: ${{ env.TARGET }}
+    - name: Install cargo-generate
+      if: matrix.os == 'ubuntu-latest'
+      run: cargo install cargo-generate
+    - name: Instantiate template
+      run: |
+        cargo generate --git app-template --name out
+        sed -i 's/# some-hal.*/nrf52840-hal = "0.12.0"/' out/Cargo.toml
+    - name: Build template
+      working-directory: out
+      run: cargo build --target ${{ env.TARGET }}
