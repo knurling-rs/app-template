@@ -1,0 +1,26 @@
+name = "knurling-app-template"
+
+description = """
+Quickly set up a `probe-run` + `defmt` + `flip-link` embedded project
+"""
+
+kickstart_version = 1
+
+ignore = [".github"]
+
+[[variables]]
+name = "project_name"
+prompt = "Enter the project name"
+default = "app-template"
+validation = "^([a-zA-Z_][a-zA-Z0-9_-]+)$"
+
+[[variables]]
+name = "crate_name"
+prompt = "Enter the crate name (usually the project name with `-` replaced by `_`)"
+default = "app_template"
+validation = "^([a-zA-Z_][a-zA-Z0-9_]+)$"
+
+[[variables]]
+name = "authors"
+prompt = "Enter the project authors"
+default = "Nobody <nobody@example.com>"

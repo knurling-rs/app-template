@@ -11,7 +11,7 @@ name = "test"
 harness = false
 
 [dependencies]
-{{project-name}} = { path = ".." }
+{{project_name}} = { path = ".." }
 cortex-m = "0.6.3"
 cortex-m-rt = "0.6.12"
 defmt = "0.1.0"
