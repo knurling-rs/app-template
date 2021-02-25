@@ -74,6 +74,13 @@ In `.cargo/config.toml`, pick the right compilation target for your board.
 +target = "thumbv7em-none-eabihf" # Cortex-M4F (with FPU)
 ```
 
+Add the target with rustup.
+
+``` console
+$ rustup target add thumbv7em-none-eabihf
+```
+
+
 #### 4. Add a HAL as a dependency
 
 In `Cargo.toml`, list the Hardware Abstraction Layer (HAL) for your board as a dependency.
