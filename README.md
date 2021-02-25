@@ -35,8 +35,7 @@ $ cargo install kickstart
 #### 1. Initialize the project template
 
 ``` console
-$ kickstart \
-    https://github.com/knurling-rs/app-template
+$ kickstart https://github.com/knurling-rs/app-template
 ```
 
 Answer the questions (or use defaults) to generate your project.
