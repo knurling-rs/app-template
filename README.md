@@ -17,12 +17,13 @@ $ cargo install flip-link
 #### 2. `probe-run`:
 
 ``` console
+$ # make sure to install v0.2.0 or later
 $ cargo install probe-run
 ```
 
 #### 3. [`cargo-generate`]:
 
-```
+``` console
 $ cargo install cargo-generate
 ```
 
@@ -152,11 +153,11 @@ $ cargo install --git https://github.com/knurling-rs/probe-run --branch main
 
 ``` console
 $ probe-run --version
-probe-run 0.1.4 (3521a42 2020-11-12)
-supported defmt version: 3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4
+0.2.0 (aa585f2 2021-02-22)
+supported defmt version: 60c6447f8ecbc4ff023378ba6905bcd0de1e679f
 ```
 
-In the example output, the supported version is `3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4`
+In the example output, the supported version is `60c6447f8ecbc4ff023378ba6905bcd0de1e679f`
 
 3. Switch defmt dependencies to git: uncomment the last part of the root `Cargo.toml` and enter the hash reported by `probe-run --version`:
 
@@ -167,10 +168,10 @@ In the example output, the supported version is `3db6b41f08a5c866e6d6ed7103d01b0
 -# defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
 -# panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
 +[patch.crates-io]
-+defmt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
-+defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
-+defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
-+panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "3db6b41f08a5c866e6d6ed7103d01b0b0fe5a1f4" }
++defmt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
++defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
++defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
++panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
 ```
 
 You are now using the git version of `defmt`!
