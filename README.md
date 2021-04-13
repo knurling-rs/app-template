@@ -138,6 +138,22 @@ $ echo $?
 0
 ```
 
+### (8. Set `rust-analyzer.linkedProjects`)
+
+If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
+
+```json
+{
+    "rust-analyzer.linkedProjects": [
+        "Cargo.toml",
+        "firmware/Cargo.toml",
+    ]
+} 
+```
+
+[RA docs]: https://rust-analyzer.github.io/manual.html#configuration
+[rust-analyzer]: https://rust-analyzer.github.io/
+
 ## Trying out the git version of defmt
 
 This template is configured to use the latest crates.io release (the "stable" release) of the `defmt` framework.
