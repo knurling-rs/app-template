@@ -114,7 +114,7 @@ Some HAL crates require that you manually copy over a file called `memory.x` fro
 ~/.cargo/registry/src/
 ```
 
-Not all HALs provide a memory.x file, you may need to write it yourself. Check the documentation for the HAL you are using.
+Not all HALs provide a `memory.x` file, you may need to write it yourself. Check the documentation for the HAL you are using.
 
 
 #### 7. Run!
@@ -138,7 +138,7 @@ $ echo $?
 0
 ```
 
-### (8. Set `rust-analyzer.linkedProjects`)
+#### (8. Set `rust-analyzer.linkedProjects`)
 
 If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
 
