@@ -1,10 +1,14 @@
 # `app-template`
 
 > Quickly set up a [`probe-run`] + [`defmt`] + [`flip-link`] embedded project
+> running on the [`RTIC`] scheduler
 
 [`probe-run`]: https://crates.io/crates/probe-run
 [`defmt`]: https://github.com/knurling-rs/defmt
 [`flip-link`]: https://github.com/knurling-rs/flip-link
+[`RTIC`]: https://rtic.rs/
+
+Based on https://github.com/knurling-rs/app-template
 
 ## Dependencies
 
@@ -37,7 +41,7 @@ $ cargo install cargo-generate
 
 ``` console
 $ cargo generate \
-    --git https://github.com/knurling-rs/app-template \
+    --git https://github.com/rtic-rs/app-template \
     --branch main \
     --name my-app
 ```
@@ -122,7 +126,7 @@ Not all HALs provide a `memory.x` file, you may need to write it yourself. Check
 You are now all set to `cargo-run` your first `defmt`-powered application!
 There are some examples in the `src/bin` directory.
 
-Start by `cargo run`-ning `my-app/src/bin/hello.rs`:
+Start by `cargo run`-ning `my-app/src/bin/minimal.rs`:
 
 ``` console
 $ # `rb` is an alias for `run --bin`
@@ -148,7 +152,7 @@ If you are using [rust-analyzer] with VS Code for IDE-like features you can add 
         "Cargo.toml",
         "firmware/Cargo.toml",
     ]
-} 
+}
 ```
 
 [RA docs]: https://rust-analyzer.github.io/manual.html#configuration
