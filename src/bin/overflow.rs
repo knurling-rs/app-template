@@ -10,12 +10,15 @@ fn main() -> ! {
 }
 
 fn ack(m: u32, n: u32) -> u32 {
-    defmt::info!("ack(m={=u32}, n={=u32})", m, n);
-    let mut big = [2; 512];
+    // waste stack space to trigger a stack overflow
+    let mut buffer = [0u8; 16 * 1024];
+    // estimate of the Stack Pointer register
+    let sp = buffer.as_mut_ptr();
+    defmt::println!("ack(m={=u32}, n={=u32}, SP={:x})", m, n, sp);
+
     if m == 0 {
         n + 1
     } else {
-        big[100] += 1;
         if n == 0 {
             ack(m - 1, 1)
         } else {
