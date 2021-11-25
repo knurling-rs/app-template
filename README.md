@@ -138,6 +138,12 @@ $ echo $?
 0
 ```
 
+If you're running out of memory (`flip-link` bails with an overflow error), you can decrease the size of the device memory buffer by setting the `DEFMT_RTT_BUFFER_SIZE` environment variable. The default value is 1024 bytes, and powers of two should be used for optimal performance:
+ 
+``` console
+$ DEFMT_RTT_BUFFER_SIZE=64 cargo rb hello
+```
+
 #### (8. Set `rust-analyzer.linkedProjects`)
 
 If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
