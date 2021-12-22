@@ -5,8 +5,13 @@ name = "{{project-name}}"
 edition = "2018"
 version = "0.1.0"
 
-[workspace]
-members = ["testsuite"]
+[lib]
+harness = false
+
+# needed for each integration test
+[[test]]
+name = "integration"
+harness = false
 
 [dependencies]
 cortex-m = "0.7.3"
@@ -16,6 +21,9 @@ defmt-rtt = "0.3.0"
 panic-probe = { version = "0.3.0", features = ["print-defmt"] }
 # TODO(4) enter your HAL here
 # some-hal = "1.2.3"
+
+[dev-dependencies]
+defmt-test = "0.3.0"
 
 # cargo build/run
 [profile.dev]
