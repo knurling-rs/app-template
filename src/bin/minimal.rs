@@ -43,8 +43,6 @@ mod app {
     }
 
     // Optional idle, can be removed if not needed.
-    // Note that removing this will put the MCU to sleep when no task is running, and this
-    // generally breaks RTT based printing.
     #[idle]
     fn idle(_: idle::Context) -> ! {
         defmt::info!("idle");

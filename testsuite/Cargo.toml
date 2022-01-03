@@ -3,7 +3,7 @@
 authors = ["{{authors}}"]
 name = "testsuite"
 publish = false
-edition = "2018"
+edition = "2021"
 version = "0.1.0"
 
 [lib]
@@ -15,25 +15,10 @@ harness = false
 
 [dependencies]
 {{project-name}} = { path = ".." }
-cortex-m = "0.7.1"
-cortex-m-rt = "0.6.12"
-defmt = "0.2.0"
-defmt-rtt = "0.2.0"
-defmt-test = "0.2.0"
-panic-probe = { version = "0.2.0", features = ["print-defmt"] }
+cortex-m = "0.7"
+cortex-m-rt = "0.7"
+defmt = "0.3.0"
+defmt-rtt = "0.3.0"
+defmt-test = "0.3.0"
+panic-probe = { version = "0.3.0", features = ["print-defmt"] }
 
-[features]
-# set logging levels here
-default = [
-  # in tests, enable all logs
-  "defmt-trace",
-  # "dependency-a/defmt-trace",
-]
-
-# do NOT modify these features
-defmt-default = []
-defmt-trace = []
-defmt-debug = []
-defmt-info = []
-defmt-warn = []
-defmt-error = []
