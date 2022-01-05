@@ -49,7 +49,10 @@ codegen-units = 1
 debug = 2
 debug-assertions = false # <-
 incremental = false
-lto = 'fat'
+# NOTE disabled to work around issue rust-lang/rust#90357
+# the bug results in log messages not having location information
+# (the line printed below the log message that contains the file-line location)
+# lto = 'fat'
 opt-level = 3 # <-
 overflow-checks = false # <-
 
@@ -59,7 +62,8 @@ codegen-units = 1
 debug = 2
 debug-assertions = false # <-
 incremental = false
-lto = 'fat'
+# see comment in the profile.release section
+lto = 'false'
 opt-level = 3 # <-
 overflow-checks = false # <-
 
