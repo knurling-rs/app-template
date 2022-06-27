@@ -63,7 +63,7 @@ debug = 2
 debug-assertions = false # <-
 incremental = false
 # see comment in the profile.release section
-lto = 'false'
+lto = false
 opt-level = 3 # <-
 overflow-checks = false # <-
 
