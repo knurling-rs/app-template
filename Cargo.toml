@@ -12,7 +12,8 @@ members = ["testsuite"]
 defmt = "0.3.0"
 defmt-rtt = "0.3.0"
 panic-probe = { version = "0.3.0", features = ["print-defmt"] }
-cortex-m-rtic = "1"
+cortex-m-rtic = "1.1"
+cortex-m = "0.7"
 # TODO(4) enter your HAL here
 # some-hal = "1.2.3"
 
