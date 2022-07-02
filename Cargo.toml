@@ -1,5 +1,5 @@
 [package]
-# TODO(1) fix `authors` and `name` if you didn't use `cargo-generate`
+# TODO fix `authors` and `name` if you didn't use `cargo-generate`
 authors = ["{{authors}}"]
 name = "{{project-name}}"
 edition = "2018"
@@ -14,8 +14,10 @@ defmt-rtt = "0.3.0"
 panic-probe = { version = "0.3.0", features = ["print-defmt"] }
 cortex-m-rtic = "1.1"
 cortex-m = "0.7"
-# TODO(4) enter your HAL here
+# TODO enter your HAL here
 # some-hal = "1.2.3"
+# TODO add a monotonic if you use scheduling
+# some-monotonic = "1.2.3"
 
 # cargo build/run
 [profile.dev]

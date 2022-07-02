@@ -3,8 +3,10 @@
 
 use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
 
-// TODO: Replace `some_hal::pac` with the path to the PAC
-#[rtic::app(device = some_hal::pac)]
+#[rtic::app(
+    device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC
+    dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+)]
 mod app {
     // TODO: Add a monotonic if scheduling will be used
     // #[monotonic(binds = SysTick, default = true)]
