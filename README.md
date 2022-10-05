@@ -50,29 +50,30 @@ Let's walk through them together now.
 
 Pick a chip from `probe-run --list-chips` and enter it into `.cargo/config.toml`.
 
-If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
+If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `$CHIP` with `nRF52840_xxAA`.
 
 [our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
 
 ``` diff
  # .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-run --chip {{chip}}"
+-runner = "probe-run --chip $CHIP"
 +runner = "probe-run --chip nRF52840_xxAA"
 ```
 
 #### 3. Adjust the compilation target
 
-In `.cargo/config.toml`, pick the right compilation target for your board.
+In `.cargo/config.toml`, pick the right compilation target for your board. The example below, disables default target (`thumbv6m-none-eabi`) and enables `thumbv7em-none-eabihf`.
 
 ``` diff
  # .cargo/config.toml
  [build]
 -target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
--# target = "thumbv7m-none-eabi"    # Cortex-M3
--# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
++# target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
+# target = "thumbv7m-none-eabi"    # Cortex-M3
+# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
 -# target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
-+target = "thumbv7em-none-eabihf" # Cortex-M4F (with FPU)
++target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
 ```
 
 Add the target with `rustup`.
