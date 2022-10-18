@@ -31,8 +31,8 @@ codegen-units = 1
 debug = 2
 debug-assertions = true # <-
 incremental = false
-opt-level = 3 # <-
-overflow-checks = true # <-
+opt-level = 3           # <-
+overflow-checks = true  # <-
 
 # cargo test
 [profile.test]
@@ -40,8 +40,8 @@ codegen-units = 1
 debug = 2
 debug-assertions = true # <-
 incremental = false
-opt-level = 3 # <-
-overflow-checks = true # <-
+opt-level = 3           # <-
+overflow-checks = true  # <-
 
 # cargo build/run --release
 [profile.release]
@@ -53,7 +53,7 @@ incremental = false
 # the bug results in log messages not having location information
 # (the line printed below the log message that contains the file-line location)
 # lto = 'fat'
-opt-level = 3 # <-
+opt-level = 3           # <-
 overflow-checks = false # <-
 
 # cargo test --release
@@ -64,7 +64,7 @@ debug-assertions = false # <-
 incremental = false
 # see comment in the profile.release section
 lto = false
-opt-level = 3 # <-
+opt-level = 3           # <-
 overflow-checks = false # <-
 
 # uncomment this to switch from the crates.io version of defmt to its git version
