@@ -31,7 +31,7 @@ codegen-units = 1
 debug = 2
 debug-assertions = true # <-
 incremental = false
-opt-level = 3           # <-
+opt-level = 'z'         # <-
 overflow-checks = true  # <-
 
 # cargo test
