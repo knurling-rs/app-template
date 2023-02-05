@@ -96,6 +96,10 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 +nrf52840-hal = "0.14.0"
 ```
 
+⚠️ Note for RP2040 users ⚠️
+
+You will need to not just specify the `rp-hal` HAL, but a BSP (board support crate) which includes a second stage bootloader. Please find a list of available BSPs [here](https://github.com/rp-rs/rp-hal-boards#packages).
+
 #### 5. Import your HAL
 
 Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
