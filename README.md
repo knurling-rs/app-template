@@ -110,6 +110,10 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 +nrf52840-hal = "0.16.0"
 ```
 
+⚠️ Note for RP2040 users ⚠️
+
+You will need to not just specify the `rp-hal` HAL, but a BSP (board support crate) which includes a second stage bootloader. Please find a list of available BSPs [here](https://github.com/rp-rs/rp-hal-boards#packages).
+
 #### 6. Import your HAL
 
 Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
@@ -163,6 +167,12 @@ resetting device
 
 $ echo $?
 0
+```
+
+If you're running out of memory (`flip-link` bails with an overflow error), you can decrease the size of the device memory buffer by setting the `DEFMT_RTT_BUFFER_SIZE` environment variable. The default value is 1024 bytes, and powers of two should be used for optimal performance:
+
+``` console
+$ DEFMT_RTT_BUFFER_SIZE=64 cargo rb hello
 ```
 
 #### (10. Set `rust-analyzer.linkedProjects`)
