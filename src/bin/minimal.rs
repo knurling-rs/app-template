@@ -32,7 +32,6 @@ mod app {
 
         task1::spawn().ok();
 
-        // Setup the monotonic timer
         (
             Shared {
                 // Initialization of shared resources go here
