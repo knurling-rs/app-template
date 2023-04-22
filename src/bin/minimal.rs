@@ -1,5 +1,6 @@
 #![no_main]
 #![no_std]
+#![feature(type_alias_impl_trait)]
 
 use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
 
@@ -8,10 +9,6 @@ use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
     dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
 )]
 mod app {
-    // TODO: Add a monotonic if scheduling will be used
-    // #[monotonic(binds = SysTick, default = true)]
-    // type DwtMono = DwtSystick<80_000_000>;
-
     // Shared resources go here
     #[shared]
     struct Shared {
@@ -25,8 +22,13 @@ mod app {
     }
 
     #[init]
-    fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
+    fn init(cx: init::Context) -> (Shared, Local) {
         defmt::info!("init");
+
+        // TODO setup monotonic if used
+        // let token = systick_monotonics::create_systick_token!();
+        // rtic_monotonics::Systick::new(cx.core.SYST, sysclk, token);
+
 
         task1::spawn().ok();
 
@@ -38,9 +40,6 @@ mod app {
             Local {
                 // Initialization of local resources go here
             },
-            init::Monotonics(
-                // Initialization of optional monotonic timers go here
-            ),
         )
     }
 
@@ -56,7 +55,7 @@ mod app {
 
     // TODO: Add tasks
     #[task]
-    fn task1(_cx: task1::Context) {
+    async fn task1(_cx: task1::Context) {
         defmt::info!("Hello from task1!");
     }
 }

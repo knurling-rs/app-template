@@ -82,10 +82,20 @@ In `.cargo/config.toml`, pick the right compilation target for your board.
 Add the target with `rustup`.
 
 ``` console
-$ rustup target add thumbv7em-none-eabihf
+$ rustup +nightly target add thumbv7em-none-eabihf
 ```
 
-#### 4. Add a HAL as a dependency
+#### 4. Activate the correct `rtic` backend
+
+In `Cargo.toml`, activate the correct `rtic` backend for your target by replacing `correct-rtic-backend` with one of `thumbv6-backend`, `thumbv7-backend`, `thumbv8base-backend`, or `thumbv8main-backend`, depending on the target you are compiling for.
+
+```diff
+# Cargo.toml
+-rtic = { version = "2.0.0-alhpa.1", features = [ "correct-rtic-backend" ] }
++rtic = { version = "2.0.0-alhpa.1", features = [ "thumbv7-backend" ] }
+```
+
+#### 5. Add a HAL as a dependency
 
 In `Cargo.toml`, list the Hardware Abstraction Layer (HAL) for your board as a dependency.
 
@@ -97,10 +107,10 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
  # Cargo.toml
  [dependencies]
 -# some-hal = "1.2.3"
-+nrf52840-hal = "0.12.0"
++nrf52840-hal = "0.16.0"
 ```
 
-#### 5. Import your HAL
+#### 6. Import your HAL
 
 Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 
@@ -110,7 +120,20 @@ Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 +use nrf52840_hal as _; // memory layout
 ```
 
-#### (6. Get a linker script)
+#### 7. Configure the `rtic::app` macro.
+
+In `src/bin/minimal.rs`, edit the `rtic::app` macro into a valid form.
+
+``` diff
+\#[rtic::app(
+-    device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC
+-    dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
++    device = nrf52840_hal::pac,
++    dispatchers = [SWI0_EGU0]
+)]
+```
+
+#### (8. Get a linker script)
 
 Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, you can get it from your local Cargo folder, the default location is under:
 
@@ -121,7 +144,7 @@ Some HAL crates require that you manually copy over a file called `memory.x` fro
 Not all HALs provide a `memory.x` file, you may need to write it yourself. Check the documentation for the HAL you are using.
 
 
-#### 7. Run!
+#### 9. Run!
 
 You are now all set to `cargo-run` your first `defmt`-powered application!
 There are some examples in the `src/bin` directory.
@@ -142,7 +165,7 @@ $ echo $?
 0
 ```
 
-#### (8. Set `rust-analyzer.linkedProjects`)
+#### (10. Set `rust-analyzer.linkedProjects`)
 
 If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
 
