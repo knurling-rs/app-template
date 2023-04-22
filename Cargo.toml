@@ -2,22 +2,20 @@
 # TODO fix `authors` and `name` if you didn't use `cargo-generate`
 authors = ["{{authors}}"]
 name = "{{project-name}}"
-edition = "2018"
+edition = "2021"
 version = "0.1.0"
 
-[workspace]
-members = ["testsuite"]
-
 [dependencies]
-defmt = "0.3.0"
-defmt-rtt = "0.3.0"
-panic-probe = { version = "0.3.0", features = ["print-defmt"] }
-cortex-m-rtic = "1.1"
-cortex-m = "0.7"
+cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
+defmt = "0.3"
+defmt-brtt = "0.1"
+panic-probe = { version = "0.3", features = ["print-defmt"] }
+# TODO select the correct rtic backend
+rtic = { version = "2.0.0-alpha.1", features = [ "correct-rtic-backend" ] }
 # TODO enter your HAL here
 # some-hal = "1.2.3"
 # TODO add a monotonic if you use scheduling
-# some-monotonic = "1.2.3"
+# rtic-monotonics = { version = "2.0.0-alpha.1", features = [ "cortex-m-systick" ]}
 
 # cargo build/run
 [profile.dev]
