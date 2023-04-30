@@ -157,7 +157,7 @@ Start by `cargo run`-ning `my-app/src/bin/minimal.rs`:
 
 ``` console
 $ # `rb` is an alias for `run --bin`
-$ cargo rb hello
+$ DEFMT_LOG=trace cargo rb hello
     Finished dev [optimized + debuginfo] target(s) in 0.03s
 flashing program ..
 DONE
