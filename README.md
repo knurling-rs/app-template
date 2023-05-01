@@ -54,14 +54,14 @@ Let's walk through them together now.
 
 Pick a chip from `probe-run --list-chips` and enter it into `.cargo/config.toml`.
 
-If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
+If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `$CHIP` with `nRF52840_xxAA`.
 
 [our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
 
 ``` diff
  # .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-run --chip {{chip}}"
+-runner = "probe-run --chip $CHIP"
 +runner = "probe-run --chip nRF52840_xxAA"
 ```
 
@@ -72,7 +72,7 @@ In `.cargo/config.toml`, pick the right compilation target for your board.
 ``` diff
  # .cargo/config.toml
  [build]
--target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
+-# target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
 -# target = "thumbv7m-none-eabi"    # Cortex-M3
 -# target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
 -# target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
@@ -87,11 +87,11 @@ $ rustup +nightly target add thumbv7em-none-eabihf
 
 #### 4. Activate the correct `rtic` backend
 
-In `Cargo.toml`, activate the correct `rtic` backend for your target by replacing `correct-rtic-backend` with one of `thumbv6-backend`, `thumbv7-backend`, `thumbv8base-backend`, or `thumbv8main-backend`, depending on the target you are compiling for.
+In `Cargo.toml`, activate the correct `rtic` backend for your target by replacing `$RTIC_BACKEND` with one of `thumbv6-backend`, `thumbv7-backend`, `thumbv8base-backend`, or `thumbv8main-backend`, depending on the target you are compiling for.
 
 ```diff
 # Cargo.toml
--rtic = { version = "2.0.0-alhpa.1", features = [ "correct-rtic-backend" ] }
+-rtic = { version = "2.0.0-alhpa.1", features = [ "$RTIC_BACKEND" ] }
 +rtic = { version = "2.0.0-alhpa.1", features = [ "thumbv7-backend" ] }
 ```
 

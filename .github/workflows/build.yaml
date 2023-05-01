@@ -1,0 +1,32 @@
+name: Build
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build the project according to the steps
+    runs-on: ubuntu:22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Install rust nightly
+        run: |
+          rustup override set nightly
+
+      - name: Configure rust target
+        run: |
+          rustup target add thumbv7em-none-eabihf
+
+      - name: Cache Dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run steps
+        run: |
+          ./run-steps.sh
