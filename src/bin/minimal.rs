@@ -2,7 +2,7 @@
 #![no_std]
 #![feature(type_alias_impl_trait)]
 
-use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
+use test_app as _; // global logger + panicking-behavior + memory layout
 
 #[rtic::app(
     device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC

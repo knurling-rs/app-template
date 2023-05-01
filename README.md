@@ -25,28 +25,15 @@ $ # make sure to install v0.2.0 or later
 $ cargo install probe-run
 ```
 
-#### 3. [`cargo-generate`]:
-
-``` console
-$ cargo install cargo-generate
-```
-
-[`cargo-generate`]: https://crates.io/crates/cargo-generate
-
-> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments.
-
 ## Setup
 
-#### 1. Initialize the project template
+#### 1. Clone the project template
 
 ``` console
-$ cargo generate \
-    --git https://github.com/rtic-rs/app-template \
-    --branch main \
-    --name my-app
+$ git clone https://github.com/rtic-rs/app-template test-app
 ```
 
-If you look into your new `my-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.
+If you look into your new `test-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.
 
 Let's walk through them together now.
 

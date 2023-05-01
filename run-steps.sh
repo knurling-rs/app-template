@@ -4,14 +4,27 @@ set -ex
 
 project="test-app"
 
+cleanup() {
+    echo "Cleaning up"
+    mv Cargo.toml.tmp Cargo.toml
+    mv .cargo/config.toml.tmp .cargo/config.toml
+}
+
+if [ "$1" = "cleanup" ]; then
+    cleanup
+    exit 1
+fi
+
 echo "Installing necessary tools"
-cargo install flip-link cargo-generate sd
+cargo install flip-link sd
 
 echo "Cleaning up old project"
 rm -rf "$project"
 
 echo "Creating new project"
-cargo generate -p . --name "$project"
+# cargo generate -p . --name "$project"
+mkdir -p "$project"
+cp -r Cargo.toml LICENSE-* src/ rust-toolchain.toml .cargo/ "$project"
 
 echo "Storing current config so that the child project will compile."
 mv Cargo.toml Cargo.toml.tmp
@@ -32,6 +45,4 @@ sd -s 'FreeInterrupt1, ...' 'SWI0_EGU0' src/bin/minimal.rs
 cargo bbr minimal
 
 cd ..
-echo "Cleaning up"
-mv Cargo.toml.tmp Cargo.toml
-mv .cargo/config.toml.tmp .cargo/config.toml
+cleanup
