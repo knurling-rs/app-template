@@ -93,7 +93,7 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 ```diff
 # Cargo.toml
  [dependencies]
--# some-hal = "1.2.3"
+-some-hal = "1.2.3"
 +nrf52840-hal = "0.16.0"
 ```
 
