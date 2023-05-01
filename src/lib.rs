@@ -2,7 +2,7 @@
 #![no_std]
 
 use core::sync::atomic::{AtomicUsize, Ordering};
-use defmt_rtt as _; // global logger
+use defmt_brtt as _; // global logger
 
 // TODO adjust HAL import
 // use some_hal as _; // memory layout
