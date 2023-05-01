@@ -1,2 +1,2 @@
 [template]
-exclude = ["README.md"]
+ignore = ["README.md"]
