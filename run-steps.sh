@@ -5,7 +5,7 @@ set -ex
 project="test-app"
 
 echo "Installing necessary tools"
-cargo install flip-link cargo-generate sd probe-run
+cargo install flip-link cargo-generate sd
 
 echo "Cleaning up old project"
 rm -rf "$project"
