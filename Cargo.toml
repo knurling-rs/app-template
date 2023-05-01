@@ -9,6 +9,9 @@ version = "0.1.0"
 cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
 defmt = "0.3"
 defmt-rtt = "0.4"
+# Use the logger below instead if you also want to use
+# non-RTT transports.
+# defmt-brtt = "0.1"
 panic-probe = { version = "0.3", features = ["print-defmt"] }
 # TODO select the correct rtic backend
 rtic = { version = "2.0.0-alpha.1", features = [ "correct-rtic-backend" ] }
