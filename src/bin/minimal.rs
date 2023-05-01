@@ -26,7 +26,7 @@ mod app {
         defmt::info!("init");
 
         // TODO setup monotonic if used
-        // let sysclk = /* clock setup + returning sysclk */
+        // let sysclk = { /* clock setup + returning sysclk as an u32 */ };
         // let token = rtic_monotonics::create_systick_token!();
         // rtic_monotonics::systick::Systick::new(cx.core.SYST, sysclk, token);
 
