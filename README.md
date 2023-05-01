@@ -33,7 +33,7 @@ $ cargo install probe-run
 $ git clone https://github.com/rtic-rs/app-template test-app
 ```
 
-If you look into your new `test-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.
+If you look into your new `test-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set. The todo's are formatted as `TODO(n)`, where `n` is the number of the step in which the TODO is explained.
 
 Let's walk through them together now.
 
@@ -78,8 +78,8 @@ In `Cargo.toml`, activate the correct `rtic` backend for your target by replacin
 
 ```diff
 # Cargo.toml
--rtic = { version = "2.0.0-alhpa.1", features = [ "$RTIC_BACKEND" ] }
-+rtic = { version = "2.0.0-alhpa.1", features = [ "thumbv7-backend" ] }
+-rtic = { version = "2.0.0-alpha.1", features = [ "$RTIC_BACKEND" ] }
++rtic = { version = "2.0.0-alpha.1", features = [ "thumbv7-backend" ] }
 ```
 
 #### 5. Add a HAL as a dependency
@@ -117,8 +117,11 @@ In `src/bin/minimal.rs`, edit the `rtic::app` macro into a valid form.
 
 ``` diff
 \#[rtic::app(
--    device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC
--    dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+-    // TODO: Replace `some_hal::pac` with the path to the PAC
+-    device = some_hal::pac,
+-    // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+-    // You can usually find the names of the interrupt vectors in the some_hal::pac::interrupt enum.
+-    dispatchers = [FreeInterrupt1, ...]
 +    device = nrf52840_hal::pac,
 +    dispatchers = [SWI0_EGU0]
 )]

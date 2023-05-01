@@ -4,7 +4,7 @@
 use core::sync::atomic::{AtomicUsize, Ordering};
 use defmt_brtt as _; // global logger
 
-// TODO adjust HAL import
+// TODO(6) Import your HAL
 // use some_hal as _; // memory layout
 use panic_probe as _;
 
