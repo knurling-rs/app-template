@@ -14,7 +14,7 @@ rustflags = [
 # TODO(3) Adjust the compilation target.
 # (`thumbv6m-*` is compatible with all ARM Cortex-M chips but using the right
 # target improves performance)
-target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
+# target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
 # target = "thumbv7m-none-eabi"    # Cortex-M3
 # target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
 # target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
@@ -22,3 +22,4 @@ target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
 [alias]
 rb = "run --bin"
 rrb = "run --release --bin"
+bbr = "build --release --bin"

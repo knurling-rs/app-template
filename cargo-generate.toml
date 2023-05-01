@@ -1,2 +1,2 @@
 [template]
-ignore = ["README.md"]
+ignore = ["README.md", "run-steps.sh"]
