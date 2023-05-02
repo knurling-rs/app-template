@@ -2,11 +2,15 @@
 #![no_std]
 #![feature(type_alias_impl_trait)]
 
-use {{crate_name}} as _; // global logger + panicking-behavior + memory layout
+use test_app as _; // global logger + panicking-behavior + memory layout
 
+// TODO(7) Configure the `rtic::app` macro
 #[rtic::app(
-    device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC
-    dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+    // TODO: Replace `some_hal::pac` with the path to the PAC
+    device = some_hal::pac,
+    // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+    // You can usually find the names of the interrupt vectors in the some_hal::pac::interrupt enum.
+    dispatchers = [FreeInterrupt1, ...]
 )]
 mod app {
     // Shared resources go here

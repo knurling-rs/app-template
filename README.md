@@ -25,28 +25,15 @@ $ # make sure to install v0.2.0 or later
 $ cargo install probe-run
 ```
 
-#### 3. [`cargo-generate`]:
-
-``` console
-$ cargo install cargo-generate
-```
-
-[`cargo-generate`]: https://crates.io/crates/cargo-generate
-
-> *Note:* You can also just clone this repository instead of using `cargo-generate`, but this involves additional manual adjustments.
-
 ## Setup
 
-#### 1. Initialize the project template
+#### 1. Clone the project template
 
 ``` console
-$ cargo generate \
-    --git https://github.com/rtic-rs/app-template \
-    --branch main \
-    --name my-app
+$ git clone https://github.com/rtic-rs/app-template test-app
 ```
 
-If you look into your new `my-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set.
+If you look into your new `test-app` folder, you'll find that there are a few `TODO`s in the files marking the properties you need to set. The todo's are formatted as `TODO(n)`, where `n` is the number of the step in which the TODO is explained.
 
 Let's walk through them together now.
 
@@ -58,8 +45,8 @@ If, for example, you have a nRF52840 Development Kit from one of [our workshops]
 
 [our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
 
-``` diff
- # .cargo/config.toml
+```diff
+# .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
 -runner = "probe-run --chip $CHIP"
 +runner = "probe-run --chip nRF52840_xxAA"
@@ -91,8 +78,8 @@ In `Cargo.toml`, activate the correct `rtic` backend for your target by replacin
 
 ```diff
 # Cargo.toml
--rtic = { version = "2.0.0-alhpa.1", features = [ "$RTIC_BACKEND" ] }
-+rtic = { version = "2.0.0-alhpa.1", features = [ "thumbv7-backend" ] }
+-rtic = { version = "2.0.0-alpha.1", features = [ "$RTIC_BACKEND" ] }
++rtic = { version = "2.0.0-alpha.1", features = [ "thumbv7-backend" ] }
 ```
 
 #### 5. Add a HAL as a dependency
@@ -103,10 +90,10 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 
 [`nrf52840-hal`]: https://crates.io/crates/nrf52840-hal
 
-``` diff
- # Cargo.toml
+```diff
+# Cargo.toml
  [dependencies]
--# some-hal = "1.2.3"
+-some-hal = "1.2.3"
 +nrf52840-hal = "0.16.0"
 ```
 
@@ -119,8 +106,8 @@ You will need to not just specify the `rp-hal` HAL, but a BSP (board support cra
 Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 
 ``` diff
- // my-app/src/lib.rs
--// use some_hal as _; // memory layout
+# my-app/src/lib.rs
+-use some_hal as _; // memory layout
 +use nrf52840_hal as _; // memory layout
 ```
 
@@ -129,9 +116,13 @@ Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 In `src/bin/minimal.rs`, edit the `rtic::app` macro into a valid form.
 
 ``` diff
+# my-app/src/bin/minimal.rs
 \#[rtic::app(
--    device = some_hal::pac, // TODO: Replace `some_hal::pac` with the path to the PAC
--    dispatchers = [FreeInterrupt1, ...] // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+-    // TODO: Replace `some_hal::pac` with the path to the PAC
+-    device = some_hal::pac,
+-    // TODO: Replace the `FreeInterrupt1, ...` with free interrupt vectors if software tasks are used
+-    // You can usually find the names of the interrupt vectors in the some_hal::pac::interrupt enum.
+-    dispatchers = [FreeInterrupt1, ...]
 +    device = nrf52840_hal::pac,
 +    dispatchers = [SWI0_EGU0]
 )]
@@ -175,61 +166,8 @@ If you're running out of memory (`flip-link` bails with an overflow error), you 
 $ DEFMT_BRTT_BUFFER_SIZE=64 cargo rb hello
 ```
 
-#### (10. Set `rust-analyzer.linkedProjects`)
-
-If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
-
-```json
-{
-    "rust-analyzer.linkedProjects": [
-        "Cargo.toml",
-        "firmware/Cargo.toml",
-    ]
-}
-```
-
 [RA docs]: https://rust-analyzer.github.io/manual.html#configuration
 [rust-analyzer]: https://rust-analyzer.github.io/
-
-## Trying out the git version of defmt
-
-This template is configured to use the latest crates.io release (the "stable" release) of the `defmt` framework.
-To use the git version (the "development" version) of `defmt` follow these steps:
-
-1. Install the *git* version of `probe-run`
-
-``` console
-$ cargo install --git https://github.com/knurling-rs/probe-run --branch main
-```
-
-2. Check which defmt version `probe-run` supports
-
-``` console
-$ probe-run --version
-0.2.0 (aa585f2 2021-02-22)
-supported defmt version: 60c6447f8ecbc4ff023378ba6905bcd0de1e679f
-```
-
-In the example output, the supported version is `60c6447f8ecbc4ff023378ba6905bcd0de1e679f`
-
-3. Switch defmt dependencies to git: uncomment the last part of the root `Cargo.toml` and enter the hash reported by `probe-run --version`:
-
-``` diff
--# [patch.crates-io]
--# defmt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
-+[patch.crates-io]
-+defmt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-```
-
-You are now using the git version of `defmt`!
-
-**NOTE** there may have been breaking changes between the crates.io version and the git version; you'll need to fix those in the source code.
 
 ## Support
 

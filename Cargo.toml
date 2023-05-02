@@ -1,7 +1,6 @@
 [package]
 # TODO fix `authors` and `name` if you didn't use `cargo-generate`
-authors = ["{{authors}}"]
-name = "{{project-name}}"
+name = "test-app"
 edition = "2021"
 version = "0.1.0"
 
@@ -10,10 +9,10 @@ cortex-m = { version = "0.7", features = ["critical-section-single-core"] }
 defmt = { version = "0.3", features = ["encoding-rzcobs"] }
 defmt-brtt = { version = "0.1", default-features = false, features = ["rtt"] }
 panic-probe = { version = "0.3", features = ["print-defmt"] }
-# TODO select the correct rtic backend
+# TODO(4) Select the correct rtic backend
 rtic = { version = "2.0.0-alpha.1", features = [ "$RTIC_BACKEND" ] }
-# TODO enter your HAL here
-# some-hal = "1.2.3"
+# TODO(5) Add hal as dependency
+some-hal = "1.2.3"
 # TODO add a monotonic if you use scheduling
 # rtic-monotonics = { version = "1.0.0-alpha.2", features = [ "cortex-m-systick" ]}
 
