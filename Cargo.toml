@@ -14,7 +14,7 @@ rtic = { version = "2.0.0", features = [ "$RTIC_BACKEND" ] }
 # TODO(5) Add hal as dependency
 some-hal = "1.2.3"
 # TODO add a monotonic if you use scheduling
-# rtic-monotonics = { version = "1.0.0-alpha.2", features = [ "cortex-m-systick" ]}
+# rtic-monotonics = { version = "1.0.0", features = [ "cortex-m-systick" ]}
 
 # cargo build/run
 [profile.dev]
