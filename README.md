@@ -78,8 +78,8 @@ In `Cargo.toml`, activate the correct `rtic` backend for your target by replacin
 
 ```diff
 # Cargo.toml
--rtic = { version = "2.0.0-alpha.1", features = [ "$RTIC_BACKEND" ] }
-+rtic = { version = "2.0.0-alpha.1", features = [ "thumbv7-backend" ] }
+-rtic = { version = "2.0.0", features = [ "$RTIC_BACKEND" ] }
++rtic = { version = "2.0.0", features = [ "thumbv7-backend" ] }
 ```
 
 #### 5. Add a HAL as a dependency
