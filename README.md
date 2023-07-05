@@ -148,7 +148,7 @@ Start by `cargo run`-ning `my-app/src/bin/minimal.rs`:
 
 ``` console
 $ # `rb` is an alias for `run --bin`
-$ DEFMT_LOG=trace cargo rb hello
+$ DEFMT_LOG=trace cargo rb minimal
     Finished dev [optimized + debuginfo] target(s) in 0.03s
 flashing program ..
 DONE
@@ -163,7 +163,7 @@ $ echo $?
 If you're running out of memory (`flip-link` bails with an overflow error), you can decrease the size of the device memory buffer by setting the `DEFMT_BRTT_BUFFER_SIZE` environment variable. The default value is 1024 bytes, and powers of two should be used for optimal performance:
 
 ``` console
-$ DEFMT_BRTT_BUFFER_SIZE=64 cargo rb hello
+$ DEFMT_BRTT_BUFFER_SIZE=64 cargo rb minimal
 ```
 
 [RA docs]: https://rust-analyzer.github.io/manual.html#configuration
