@@ -5,9 +5,11 @@ rustflags = [
   "-C", "linker=flip-link",
   "-C", "link-arg=-Tlink.x",
   "-C", "link-arg=-Tdefmt.x",
+  # "-C", "target-cpu=cortex-m7", # For Cortex M7 instructions/pipelining
+  # "-C", "target-feature=+fp64", # For Cortex M7 double precision FPU
   # This is needed if your flash or ram addresses are not aligned to 0x10000 in memory.x
   # See https://github.com/rust-embedded/cortex-m-quickstart/pull/95
-  "-C", "link-arg=--nmagic",
+  # "-C", "link-arg=--nmagic",
 ]
 
 [build]
