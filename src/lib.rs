@@ -15,10 +15,12 @@ fn panic() -> ! {
     cortex_m::asm::udf()
 }
 
-/// Terminates the application and makes `probe-run` exit with exit-code = 0
+/// Terminates the application and makes a semihosting-capable debug tool exit
+/// with status code 0.
 pub fn exit() -> ! {
+    use cortex_m_semihosting::debug;
     loop {
-        cortex_m::asm::bkpt();
+        debug::exit(debug::EXIT_SUCCESS);
     }
 }
 
