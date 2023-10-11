@@ -1,8 +1,8 @@
 # `app-template`
 
-> Quickly set up a [`probe-run`] + [`defmt`] + [`flip-link`] embedded project
+> Quickly set up a [`probe-rs`] + [`defmt`] + [`flip-link`] embedded project
 
-[`probe-run`]: https://crates.io/crates/probe-run
+[`probe-rs`]: https://crates.io/crates/probe-rs
 [`defmt`]: https://github.com/knurling-rs/defmt
 [`flip-link`]: https://github.com/knurling-rs/flip-link
 
@@ -14,11 +14,11 @@
 $ cargo install flip-link
 ```
 
-#### 2. `probe-run`:
+#### 2. `probe-rs`:
 
 ``` console
 $ # make sure to install v0.2.0 or later
-$ cargo install probe-run
+$ cargo install probe-rs --features cli
 ```
 
 #### 3. [`cargo-generate`]:
@@ -46,9 +46,9 @@ If you look into your new `my-app` folder, you'll find that there are a few `TOD
 
 Let's walk through them together now.
 
-#### 2. Set `probe-run` chip
+#### 2. Set `probe-rs` chip
 
-Pick a chip from `probe-run --list-chips` and enter it into `.cargo/config.toml`.
+Pick a chip from `probe-rs list chips` and enter it into `.cargo/config.toml`.
 
 If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
 
@@ -57,8 +57,8 @@ If, for example, you have a nRF52840 Development Kit from one of [our workshops]
 ``` diff
  # .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-run --chip {{chip}}"
-+runner = "probe-run --chip nRF52840_xxAA"
+-runner = "probe-rs run --chip {{chip}}"
++runner = "probe-rs run --chip nRF52840_xxAA"
 ```
 
 #### 3. Adjust the compilation target
@@ -192,46 +192,6 @@ all tests passed!
 ```
 
 Note that to add a new test file to the `tests` directory you also need to add a new `[[test]]` section to `Cargo.toml`.
-
-## Trying out the git version of defmt
-
-This template is configured to use the latest crates.io release (the "stable" release) of the `defmt` framework.
-To use the git version (the "development" version) of `defmt` follow these steps:
-
-1. Install the *git* version of `probe-run`
-
-``` console
-$ cargo install --git https://github.com/knurling-rs/probe-run --branch main
-```
-
-2. Check which defmt version `probe-run` supports
-
-``` console
-$ probe-run --version
-0.2.0 (aa585f2 2021-02-22)
-supported defmt version: 60c6447f8ecbc4ff023378ba6905bcd0de1e679f
-```
-
-In the example output, the supported version is `60c6447f8ecbc4ff023378ba6905bcd0de1e679f`
-
-3. Switch defmt dependencies to git: uncomment the last part of the root `Cargo.toml` and enter the hash reported by `probe-run --version`:
-
-``` diff
--# [patch.crates-io]
--# defmt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
--# panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "use defmt version reported by `probe-run --version`" }
-+[patch.crates-io]
-+defmt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+defmt-rtt = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+defmt-test = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-+panic-probe = { git = "https://github.com/knurling-rs/defmt", rev = "60c6447f8ecbc4ff023378ba6905bcd0de1e679f" }
-```
-
-You are now using the git version of `defmt`!
-
-**NOTE** there may have been breaking changes between the crates.io version and the git version; you'll need to fix those in the source code.
 
 ## Support
 
