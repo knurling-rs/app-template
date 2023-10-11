@@ -61,6 +61,14 @@ If, for example, you have a nRF52840 Development Kit from one of [our workshops]
 +runner = "probe-rs run --chip nRF52840_xxAA"
 ```
 
+#### 2.1 Pass custom log format
+
+You need to use an array of strings instead of a single string for the `runner` if you use a custom log format.
+
+```toml
+runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format", "{L} {s}"]
+```
+
 #### 3. Adjust the compilation target
 
 In `.cargo/config.toml`, pick the right compilation target for your board.
