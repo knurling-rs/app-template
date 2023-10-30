@@ -48,7 +48,7 @@ Let's walk through them together now.
 
 #### 2. Set `probe-rs` chip
 
-Pick a chip from `probe-rs list chips` and enter it into `.cargo/config.toml`.
+Pick a chip from ` probe-rs chip list` and enter it into `.cargo/config.toml`.
 
 If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
 
