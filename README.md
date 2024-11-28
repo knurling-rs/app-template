@@ -16,10 +16,7 @@ cargo install flip-link
 
 ### 2. `probe-rs`:
 
-```bash
-# make sure to install v0.2.0 or later
-cargo install probe-rs --features cli
-```
+Install probe-rs by following the instructions at <https://probe.rs/docs/getting-started/installation/>.
 
 ### 3. [`cargo-generate`]:
 
