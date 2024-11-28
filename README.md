@@ -8,23 +8,23 @@
 
 ## Dependencies
 
-#### 1. `flip-link`:
+### 1. `flip-link`:
 
-```console
-$ cargo install flip-link
+```bash
+cargo install flip-link
 ```
 
-#### 2. `probe-rs`:
+### 2. `probe-rs`:
 
-``` console
-$ # make sure to install v0.2.0 or later
-$ cargo install probe-rs --features cli
+```bash
+# make sure to install v0.2.0 or later
+cargo install probe-rs --features cli
 ```
 
-#### 3. [`cargo-generate`]:
+### 3. [`cargo-generate`]:
 
-``` console
-$ cargo install cargo-generate
+```bash
+cargo install cargo-generate
 ```
 
 [`cargo-generate`]: https://crates.io/crates/cargo-generate
@@ -33,10 +33,10 @@ $ cargo install cargo-generate
 
 ## Setup
 
-#### 1. Initialize the project template
+### 1. Initialize the project template
 
-``` console
-$ cargo generate \
+```bash
+cargo generate \
     --git https://github.com/knurling-rs/app-template \
     --branch main \
     --name my-app
@@ -46,7 +46,7 @@ If you look into your new `my-app` folder, you'll find that there are a few `TOD
 
 Let's walk through them together now.
 
-#### 2. Set `probe-rs` chip
+### 2. Set `probe-rs` chip
 
 Pick a chip from ` probe-rs chip list` and enter it into `.cargo/config.toml`.
 
@@ -54,14 +54,14 @@ If, for example, you have a nRF52840 Development Kit from one of [our workshops]
 
 [our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
 
-``` diff
+```diff
  # .cargo/config.toml
  [target.'cfg(all(target_arch = "arm", target_os = "none"))']
 -runner = "probe-rs run --chip {{chip}}"
 +runner = "probe-rs run --chip nRF52840_xxAA"
 ```
 
-#### 2.1 Pass custom log format
+### 2.1 Pass custom log format
 
 You need to use an array of strings instead of a single string for the `runner` if you use a custom log format.
 
@@ -69,11 +69,11 @@ You need to use an array of strings instead of a single string for the `runner` 
 runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format", "{L} {s}"]
 ```
 
-#### 3. Adjust the compilation target
+### 3. Adjust the compilation target
 
 In `.cargo/config.toml`, pick the right compilation target for your board.
 
-``` diff
+```diff
  # .cargo/config.toml
  [build]
 -target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
@@ -85,11 +85,11 @@ In `.cargo/config.toml`, pick the right compilation target for your board.
 
 Add the target with `rustup`.
 
-``` console
-$ rustup target add thumbv7em-none-eabihf
+```bash
+rustup target add thumbv7em-none-eabihf
 ```
 
-#### 4. Add a HAL as a dependency
+### 4. Add a HAL as a dependency
 
 In `Cargo.toml`, list the Hardware Abstraction Layer (HAL) for your board as a dependency.
 
@@ -97,7 +97,7 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 
 [`nrf52840-hal`]: https://crates.io/crates/nrf52840-hal
 
-``` diff
+```diff
  # Cargo.toml
  [dependencies]
 -# some-hal = "1.2.3"
@@ -108,35 +108,34 @@ For the nRF52840 you'll want to use the [`nrf52840-hal`].
 
 You will need to not just specify the `rp-hal` HAL, but a BSP (board support crate) which includes a second stage bootloader. Please find a list of available BSPs [here](https://github.com/rp-rs/rp-hal-boards#packages).
 
-#### 5. Import your HAL
+### 5. Import your HAL
 
 Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 
-``` diff
+```diff
  // my-app/src/lib.rs
 -// use some_hal as _; // memory layout
 +use nrf52840_hal as _; // memory layout
 ```
 
-#### (6. Get a linker script)
+### (6. Get a linker script)
 
 Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, you can get it from your local Cargo folder, the default location is under:
 
-```
+```text
 ~/.cargo/registry/src/
 ```
 
 Not all HALs provide a `memory.x` file, you may need to write it yourself. Check the documentation for the HAL you are using.
 
-
-#### 7. Run!
+### 7. Run!
 
 You are now all set to `cargo-run` your first `defmt`-powered application!
 There are some examples in the `src/bin` directory.
 
 Start by `cargo run`-ning `my-app/src/bin/hello.rs`:
 
-``` console
+```console
 $ # `rb` is an alias for `run --bin`
 $ cargo rb hello
     Finished dev [optimized + debuginfo] target(s) in 0.03s
@@ -152,11 +151,11 @@ $ echo $?
 
 If you're running out of memory (`flip-link` bails with an overflow error), you can decrease the size of the device memory buffer by setting the `DEFMT_RTT_BUFFER_SIZE` environment variable. The default value is 1024 bytes, and powers of two should be used for optimal performance:
 
-``` console
+```console
 $ DEFMT_RTT_BUFFER_SIZE=64 cargo rb hello
 ```
 
-#### (8. Set `rust-analyzer.linkedProjects`)
+### (8. Set `rust-analyzer.linkedProjects`)
 
 If you are using [rust-analyzer] with VS Code for IDE-like features you can add following configuration to your `.vscode/settings.json` to make it work transparently across workspaces. Find the details of this option in the [RA docs].
 
@@ -179,7 +178,7 @@ The template comes configured for running unit tests and integration tests on th
 Unit tests reside in the library crate and can test private API; the initial set of unit tests are in `src/lib.rs`.
 `cargo test --lib` will run those unit tests.
 
-``` console
+```console
 $ cargo test --lib
 (1/1) running `it_works`...
 └─ app::unit_tests::__defmt_test_entry @ src/lib.rs:33
@@ -191,7 +190,7 @@ Integration tests reside in the `tests` directory; the initial set of integratio
 `cargo test --test integration` will run those integration tests.
 Note that the argument of the `--test` flag must match the name of the test file in the `tests` directory.
 
-``` console
+```console
 $ cargo test --test integration
 (1/1) running `it_works`...
 └─ integration::tests::__defmt_test_entry @ tests/integration.rs:13
