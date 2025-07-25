@@ -2,7 +2,7 @@
 # TODO(1) fix `authors` and `name` if you didn't use `cargo-generate`
 authors = ["{{authors}}"]
 name = "{{project-name}}"
-edition = "2021"
+edition = "2024"
 version = "0.1.0"
 
 [lib]
