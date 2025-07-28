@@ -1,7 +1,7 @@
 [target.'cfg(all(target_arch = "arm", target_os = "none"))']
 # TODO(2) replace `$CHIP` with your chip's name (see `probe-rs chip list` output)
-runner = "probe-rs run --chip $CHIP"
-# runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format", "{L} {s}"]
+runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format=oneline"]
+# If you have an nRF52, you might also want to add "--allow-erase-all" to the list
 
 rustflags = [
   "-C", "linker=flip-link",
@@ -14,13 +14,14 @@ rustflags = [
 
 [build]
 # TODO(3) Adjust the compilation target.
-# (`thumbv6m-*` is compatible with all ARM Cortex-M chips but using the right
-# target improves performance)
+# Select the correct target for your processor:
 target = "thumbv6m-none-eabi"    # Cortex-M0 and Cortex-M0+
 # target = "thumbv7m-none-eabi"    # Cortex-M3
 # target = "thumbv7em-none-eabi"   # Cortex-M4 and Cortex-M7 (no FPU)
 # target = "thumbv7em-none-eabihf" # Cortex-M4F and Cortex-M7F (with FPU)
 
 [alias]
+# `cargo rb foo` will expand to `cargo run --bin foo`
 rb = "run --bin"
+# `cargo rrb foo` will expand to `cargo run --release --bin foo`
 rrb = "run --release --bin"

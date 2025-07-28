@@ -47,23 +47,14 @@ Let's walk through them together now.
 
 Pick a chip from ` probe-rs chip list` and enter it into `.cargo/config.toml`.
 
-If, for example, you have a nRF52840 Development Kit from one of [our workshops], replace `{{chip}}` with `nRF52840_xxAA`.
+If, for example, you have a nRF52840 Development Kit as used in one of [our exercises], replace `{{chip}}` with `nRF52840_xxAA`.
 
-[our workshops]: https://github.com/ferrous-systems/embedded-trainings-2020
+[our workshops]: https://rust-exercises.ferrous-systems.com
 
 ```diff
  # .cargo/config.toml
- [target.'cfg(all(target_arch = "arm", target_os = "none"))']
--runner = "probe-rs run --chip {{chip}}"
-+runner = "probe-rs run --chip nRF52840_xxAA"
-```
-
-### 2.1 Pass custom log format
-
-You need to use an array of strings instead of a single string for the `runner` if you use a custom log format.
-
-```toml
-runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format", "{L} {s}"]
+-runner = ["probe-rs", "run", "--chip", "$CHIP", "--log-format=oneline"]
++runner = ["probe-rs", "run", "--chip", "nRF52840_xxAA", "--log-format=oneline"]
 ```
 
 ### 3. Adjust the compilation target
@@ -117,13 +108,19 @@ Now that you have selected a HAL, fix the HAL import in `src/lib.rs`
 
 ### (6. Get a linker script)
 
-Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, you can get it from your local Cargo folder, the default location is under:
+Some HAL crates require that you manually copy over a file called `memory.x` from the HAL to the root of your project. For nrf52840-hal, this is done automatically so no action is needed. For other HAL crates, see their documentation on where to find an example file.
+
+The `memory.x` file should look something like:
 
 ```text
-~/.cargo/registry/src/
+MEMORY
+{
+  FLASH : ORIGIN = 0x00000000, LENGTH = 1024K
+  RAM   : ORIGIN = 0x20000000, LENGTH = 256K
+}
 ```
 
-Not all HALs provide a `memory.x` file, you may need to write it yourself. Check the documentation for the HAL you are using.
+The `memory.x` file is included in the `cortex-m-rt` linker script `link.x`, and so `link.x` is the one you should tell `rustc` to use (see the `.cargo/config.toml` file where we do that).
 
 ### 7. Run!
 
@@ -135,12 +132,11 @@ Start by `cargo run`-ning `my-app/src/bin/hello.rs`:
 ```console
 $ # `rb` is an alias for `run --bin`
 $ cargo rb hello
-    Finished dev [optimized + debuginfo] target(s) in 0.03s
-flashing program ..
-DONE
-resetting device
-0.000000 INFO Hello, world!
-(..)
+    Finished `dev` profile [optimized + debuginfo] target(s) in 0.01s
+     Running `probe-rs run --chip nrf52840_xxaa --log-format=oneline target/thumbv6m-none-eabi/debug/hello`
+      Erasing ✔ 100% [####################]   8.00 KiB @  15.79 KiB/s (took 1s)
+  Programming ✔ 100% [####################]   8.00 KiB @  13.19 KiB/s (took 1s)                                                                                                                        Finished in 1.11s
+Hello, world!
 
 $ echo $?
 0
@@ -177,10 +173,13 @@ Unit tests reside in the library crate and can test private API; the initial set
 
 ```console
 $ cargo test --lib
+   Compiling example v0.1.0 (./knurling-rs/example)
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.15s
+     Running unittests src/lib.rs (target/thumbv6m-none-eabi/debug/deps/example-2b0d0e25d141bf57)
+      Erasing ✔ 100% [####################]   8.00 KiB @  15.99 KiB/s (took 1s)
+  Programming ✔ 100% [####################]   8.00 KiB @  13.33 KiB/s (took 1s)                                                                                                                        Finished in 1.10s
 (1/1) running `it_works`...
-└─ app::unit_tests::__defmt_test_entry @ src/lib.rs:33
 all tests passed!
-└─ app::unit_tests::__defmt_test_entry @ src/lib.rs:28
 ```
 
 Integration tests reside in the `tests` directory; the initial set of integration tests are in `tests/integration.rs`.
@@ -189,10 +188,13 @@ Note that the argument of the `--test` flag must match the name of the test file
 
 ```console
 $ cargo test --test integration
+   Compiling example v0.1.0 (./knurling-rs/example)
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.10s
+     Running tests/integration.rs (target/thumbv6m-none-eabi/debug/deps/integration-aaaff41151f6a722)
+      Erasing ✔ 100% [####################]   8.00 KiB @  16.03 KiB/s (took 0s)
+  Programming ✔ 100% [####################]   8.00 KiB @  13.19 KiB/s (took 1s)                                                                                                                        Finished in 1.11s
 (1/1) running `it_works`...
-└─ integration::tests::__defmt_test_entry @ tests/integration.rs:13
 all tests passed!
-└─ integration::tests::__defmt_test_entry @ tests/integration.rs:8
 ```
 
 Note that to add a new test file to the `tests` directory you also need to add a new `[[test]]` section to `Cargo.toml`.
