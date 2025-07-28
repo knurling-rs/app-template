@@ -197,6 +197,9 @@ all tests passed!
 
 Note that to add a new test file to the `tests` directory you also need to add a new `[[test]]` section to `Cargo.toml`.
 
+To run all the tests via `cargo test` the tests need to be explicitly disabled for all the existing binary targets.
+See `Cargo.toml` for details on how to do this.
+
 ## Support
 
 `app-template` is part of the [Knurling] project, [Ferrous Systems]' effort at
