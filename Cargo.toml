@@ -2,6 +2,10 @@
 # TODO(1) fix `authors` and `name` if you didn't use `cargo-generate`
 authors = ["{{authors}}"]
 name = "{{project-name}}"
+
+# Ferocene only supports up to 2021 edition
+#edition = "2021"
+# Many embedded developers don't use Ferocene, so they could benefit from the latest Rust features 
 edition = "2024"
 version = "0.1.0"
 
