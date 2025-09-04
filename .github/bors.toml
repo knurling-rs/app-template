@@ -1,0 +1,5 @@
+delete_merged_branches = true
+status = [
+    "test (stable)",
+    "test (nightly)",
+]
